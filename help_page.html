@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help - Younger Lab Database</title>
+  <link rel="stylesheet" href="style2.css">
+  <style>
+    .collapsible {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 18px;
+      transition: background-color 0.4s ease;
+    }
+
+    .active, .collapsible:hover {
+      background-color: #ccc;
+    }
+
+    .content {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color: #f9f9f9;
+      transition: max-height 0.2s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="#" class="logo">Younger Lab Database Help</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Help Guide</h1>
+
+      <button class="collapsible">Forms</button>
+      <div class="content">
+        <h2>Passage Form</h2>
+        <p>For each field in the form:
+            <b>Name:</b> input the name of the person filling the form.
+            <b>Genoype:</b> select genotype of line passaged.
+            <b>BC/IB Number:</b> input current inbreed or backcross number of the generation, adding +1 for the latest cross.
+            <b>Hatch Date:</b> hatch date of the line passaged.
+            <b>Passage Date:</b> input today's date.
+            <b>Mating Line:</b> the the passage is crossing with.
+        </p>
+        <h2>Sorting Form</h2>
+        <p>For each field in the form:
+          <b>Name:</b> input the name of the person filling the form.
+          <b>Date Sorting:</b> input today's date.
+          <b>Marker Location:</b> input location of fluorescent marker.
+          <b>Ratio of fluorescent to non-fluorescent larvae:</b> approximate ratio using slider, with color representing fluorescent mosquitos.
+          <b>Number of fluorescent animals sorted:</b> input total number of animals which were fluorescent.
+          <b>Additional Notes:</b> open field for any relevant notes, such as male to female ratios. 
+        </p>
+        <h2>Clutch Form</h2>
+        <p>For each field in the form:
+          <b>Name:</b> input the name of the person filling the form.
+          <b>Genoype:</b> select genotype of line passaged.
+          <b>Hatch Date:</b> input hatch date of the clutch.
+          <b>Collection Date:</b> input date the eggs are collected.
+          <b>Clutch number:</b> is it the first, second, or third time collecting eggs from this cage since last passage?
+          <b>Egg Papers:</b> input density of the eggs on the egg paper. See images below for reference.
+          <img src  = 'https://bioed.bu.edu/var/www/html.images/students_24/Team_4/image you want lol'>
+        </p>
+      </div>
+
+      <button class="collapsible">Tables</button>
+      <div class="content">
+        <h2>Mosquito Lines Table</h2>
+        <p>The mosquito lines table provides a master view of the and serves as a reference table for day to day lab queries in an easily accesible, sortable format.</p>
+        <h2>Sorting Table</h2>
+        <p>The sorting table provides more in depth archival information on each sorting event as submitted through the sorting form.</p>
+        <h2>Passage Table</h2>
+        <p>The passage table provides more in depth archival information on each sorting event as submitted through the passage form.</p>
+      </div>
+
+      <button class="collapsible">Modify Tables</button>
+      <div class="content">
+        <p>Guidance on how to modify tables within the database.</p>
+      </div>
+
+      <button class="collapsible">Diagnostics</button>
+      <div class="content">
+        <h2>Clutch Wellness</h2>
+        <p>The clutch wellness functionality allows users to perform clutch wellness checks. Select the Line in question from the genotype dropdown menu. The graph will display the egg density of the line over time as pulled from record submitted through the clutch form. Each individual line is correlated with whether the clutch was the first, second, or third of its parent line.</p>
+        <h2>Statistics</h2>
+        <p>Insights into the statistical tools available and how to use them to analyze data.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Younger Lab Database. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    for (let i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
