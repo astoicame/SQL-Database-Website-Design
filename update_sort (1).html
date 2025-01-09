@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Protection Page</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .logo-container {
+            text-align: left; 
+            display: inline-block; 
+            width: 100%; 
+        }
+        .logo {
+            display: inline-block;
+        }
+        #passwordForm, #newPasswordForm {
+            margin-top: 50px;
+        }
+        input[type="password"], input[type="submit"], button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            width: 100px; 
+            height: 40px; 
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+        #changePasswordBtn {
+            width: 150px; 
+            height: 40px;
+            font-size: 14px; 
+        }
+        #password {
+            width: 200px; 
+            height: 20px; 
+            font-size: 16px; 
+        }
+        #newPassword {
+            width: 200px;
+            height: 20px; 
+            font-size: 16px; 
+        }
+        #changePasswordBtnNewPassword {
+            width: 600px; 
+            height: 40px; 
+            font-size: 14px; 
+        }
+        #protectedContent {
+            display: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <a href="#" class="logo">Younger Lab Database</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#" id="home-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Forms</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="passage-form-link">Passage Form</a></li>
+                            <li><a href="#" id="sorting-form-link">Sorting Form</a></li>
+                            <li><a href="#" id="clutch-form-link">Clutch Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Tables</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="master-view-link">Master View</a></li>
+                            <li><a href="#" id="sorting-table-link">Sorting Table</a></li>
+                            <li><a href="#" id="passage-table-link">Passage Table</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" id="modify-tables-link">Modify Tables</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Diagnostics</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="clutch-wellness-link">Clutch Wellness</a></li>
+                            <li><a href="#" id="statistics-link">Statistics</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" id="help-link">Help</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="passwordForm">
+        <form id="loginForm">
+            <label for="password">Enter Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Submit" id="submitBtn">
+            <button id="changePasswordBtn" type="button">Change Password</button>
+        </form>
+    </div>
+
+    <div id="newPasswordForm" style="display: none;">
+        <form id="changePasswordForm">
+            <label for="newPassword">New Password:</label><br>
+            <input type="password" id="newPassword" name="newPassword" required><br>
+            <input type="submit" value="Change Password" id="changePasswordSubmit">
+        </form>
+    </div>
+
+    <div id="protectedContent">
+        <h2>Modify Existing Entries</h2>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Update Sort Data</title>
+        </head>
+        <body>
+
+        <h2>Update Sort Data</h2>
+
+        <form id="updateForm">
+            <label for="sort_id">Sort ID:</label>
+            <input type="text" id="sort_id" name="sort_id"><br><br>
+            <label for="hatch_date">Hatch Date:</label>
+            <input type="text" id="hatch_date" name="hatch_date"><br><br>
+            <label for="sort_date">Sort Date:</label>
+            <input type="text" id="sort_date" name="sort_date"><br><br>
+            <label for="line_name">Line Name:</label>
+            <input type="text" id="line_name" name="line_name"><br><br>
+            <label for="marker_color">Marker Color:</label>
+            <input type="text" id="marker_color" name="marker_color"><br><br>
+            <label for="marker_location">Marker Location:</label>
+            <input type="text" id="marker_location" name="marker_location"><br><br>
+            <label for="fl_ratio">FL Ratio:</label>
+            <input type="text" id="fl_ratio" name="fl_ratio"><br><br>
+            <label for="fl_total">FL Total:</label>
+            <input type="text" id="fl_total" name="fl_total"><br><br>
+            <label for="notes">Notes:</label>
+            <input type="text" id="notes" name="notes"><br><br>
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+
+        <div id="successMessage" style="display: none; color: green; margin-top: 10px;">Update successful!</div>
+
+        <script>
+
+        document.getElementById("sort_id").addEventListener("input", function() {
+            var sort_id = document.getElementById("sort_id").value;
+            
+            fetch('/cgi-bin/students_24/Team_4/get_sort.py?sort_id=' + encodeURIComponent(sort_id))
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                alert("Failed to fetch data: " + data.error);
+                } else {
+                document.getElementById("hatch_date").value = data.hatch_date || "";
+                document.getElementById("sort_date").value = data.sort_date || "";
+                document.getElementById("line_name").value = data.line_name || "";
+                document.getElementById("marker_color").value = data.marker_color || "";
+                document.getElementById("marker_location").value = data.marker_location || "";
+                document.getElementById("fl_ratio").value = data.fl_ratio || "";
+                document.getElementById("fl_total").value = data.fl_total || "";
+                document.getElementById("notes").value = data.notes || "";
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                alert("Failed to fetch data: " + error);
+            });
+        });
+
+        function submitForm() {
+            var sort_id = document.getElementById("sort_id").value;
+            var hatch_date = document.getElementById("hatch_date").value;
+            var sort_date = document.getElementById("sort_date").value;
+            var line_name = document.getElementById("line_name").value;
+            var marker_color = document.getElementById("marker_color").value;
+            var marker_location = document.getElementById("marker_location").value;
+            var fl_ratio = document.getElementById("fl_ratio").value;
+            var fl_total = document.getElementById("fl_total").value;
+            var notes = document.getElementById("notes").value;
+            
+            // Send a request to the CGI script to update the database
+            fetch('/cgi-bin/students_24/Team_4/update_sort.py?sort_id=' + encodeURIComponent(sort_id) + '&hatch_date=' + encodeURIComponent(hatch_date) + '&sort_date=' + encodeURIComponent(sort_date) + '&line_name=' + encodeURIComponent(line_name) + '&marker_color=' + encodeURIComponent(marker_color) + '&marker_location=' + encodeURIComponent(marker_location) + '&fl_ratio=' + encodeURIComponent(fl_ratio) + '&fl_total=' + encodeURIComponent(fl_total) + '&notes=' + encodeURIComponent(notes))
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                // Display success message
+                document.getElementById("successMessage").style.display = "block";
+                
+                // Clear form fields after successful submission
+                document.getElementById("sort_id").value = "";
+                document.getElementById("hatch_date").value = "";
+                document.getElementById("sort_date").value = "";
+                document.getElementById("line_name").value = "";
+                document.getElementById("marker_color").value = "";
+                document.getElementById("marker_location").value = "";
+                document.getElementById("fl_ratio").value = "";
+                document.getElementById("fl_total").value = "";
+                document.getElementById("notes").value = "";
+                } else {
+                // Display error message if update fails
+                alert("Failed to update database: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                // Display error message if fetch request fails
+                alert("Failed to update database: " + error);
+            });
+        }
+        </script>
+        </body>
+        </html>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Event listener for the login form submission
+            $('#loginForm').submit(function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                authenticate(); // Call the authenticate function
+            });
+        });
+
+        function authenticate() {
+            var password = $('#password').val();
+            // Check if the password is correct
+            if (password === 'your_password') { // Replace 'your_password' with actual password
+                // Show the protected content
+                $('#protectedContent').show();
+                // Hide the password form
+                $('#passwordForm').hide();
+            } else {
+                // Incorrect password, show an error message
+                alert('Incorrect password! Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
+
