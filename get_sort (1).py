@@ -5,11 +5,11 @@ import pymysql
 
 # Connect to the database
 connection = pymysql.connect(
-    host='bioed.bu.edu',
-    user='astoicad',
-    password='astoicad',
-    db='Team_4',
-    port=4253
+    host='',
+    user='',
+    password='',
+    db='',
+    port=
 )
 
 # Function to get sort data for a given sort_id from the database
